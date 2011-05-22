@@ -1,11 +1,30 @@
 package com.md.dm.vi.tp.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "POPULATION")
 public class Population {
 
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
+	private Long id;
+	@Column(name = "ZONE_NAME")
 	private String zoneName;
+	@Column(name = "DENSITY")
 	private Integer density;
+	@Column(name = "COMMUTING_DENSITY")
 	private Integer commutingDensity;
-	
+
+	Population() {
+		// Only for RDBMS
+	}
+
 	public Population(String zoneName, Integer density, Integer commutingDensity) {
 		super();
 		this.zoneName = zoneName;
@@ -17,12 +36,28 @@ public class Population {
 		return zoneName;
 	}
 
+	public void setZoneName(String zoneName) {
+		this.zoneName = zoneName;
+	}
+
 	public Integer getDensity() {
 		return density;
 	}
 
+	public void setDensity(Integer density) {
+		this.density = density;
+	}
+
 	public Integer getCommutingDensity() {
 		return commutingDensity;
+	}
+
+	public void setCommutingDensity(Integer commutingDensity) {
+		this.commutingDensity = commutingDensity;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	@Override
@@ -33,6 +68,7 @@ public class Population {
 				* result
 				+ ((commutingDensity == null) ? 0 : commutingDensity.hashCode());
 		result = prime * result + ((density == null) ? 0 : density.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((zoneName == null) ? 0 : zoneName.hashCode());
 		return result;
@@ -57,6 +93,11 @@ public class Population {
 				return false;
 		} else if (!density.equals(other.density))
 			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (zoneName == null) {
 			if (other.zoneName != null)
 				return false;
@@ -67,9 +108,7 @@ public class Population {
 
 	@Override
 	public String toString() {
-		return "Population [zoneName=" + zoneName + ", density=" + density
-				+ ", commutingDensity=" + commutingDensity + "]";
+		return "Population [id=" + id + ", zoneName=" + zoneName + ", density="
+				+ density + ", commutingDensity=" + commutingDensity + "]";
 	}
-	
-	
 }

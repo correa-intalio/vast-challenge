@@ -2,20 +2,45 @@ package com.md.dm.vi.tp.entity;
 
 import java.util.Date;
 
-import com.vividsolutions.jts.geom.Point;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
+import com.vividsolutions.jts.geom.Point;
+@Entity
+@Table(name = "MICROBLOG")
 public class Microblog {
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	private Long id;
+	@Column(name = "USER_ID")
+	private Long userId;
+	@Column(name = "DATE")
 	private Date date;
-	private String latitude;
-	private String longitud;
+	@Column(name = "LATITUDE")
+	private Double latitude;
+	@Column(name = "LONGITUD")
+	private Double longitud;
+	@Column(name = "LOCATION")
+	@Type(type = "org.hibernatespatial.GeometryUserType")
 	private Point location;
+	@Column(name = "TEXT")
 	private String text;
 	
-	public Microblog(Long id, Date date, String latitude, String longitud,
-			Point location, String text) {
+	Microblog() {
+		//Only for RDBMS 
+	}
+
+	public Microblog(Long userId, Date date, Double latitude,
+			Double longitud, Point location, String text) {
 		super();
-		this.id = id;
+		this.userId = userId;
 		this.date = date;
 		this.latitude = latitude;
 		this.longitud = longitud;
@@ -23,28 +48,56 @@ public class Microblog {
 		this.text = text;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public Date getDate() {
 		return date;
 	}
 
-	public String getLatitude() {
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public String getLongitud() {
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitud() {
 		return longitud;
+	}
+
+	public void setLongitud(Double longitud) {
+		this.longitud = longitud;
 	}
 
 	public Point getLocation() {
 		return location;
 	}
 
+	public void setLocation(Point location) {
+		this.location = location;
+	}
+
 	public String getText() {
 		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	@Override
@@ -60,6 +113,7 @@ public class Microblog {
 		result = prime * result
 				+ ((longitud == null) ? 0 : longitud.hashCode());
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -102,13 +156,19 @@ public class Microblog {
 				return false;
 		} else if (!text.equals(other.text))
 			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Microblog [id=" + id + ", date=" + date + ", latitude="
-				+ latitude + ", longitud=" + longitud + ", location="
-				+ location + ", text=" + text + "]";
+		return "Microblog [id=" + id + ", userId=" + userId + ", date=" + date
+				+ ", latitude=" + latitude + ", longitud=" + longitud
+				+ ", location=" + location + ", text=" + text + "]";
 	}
+	
 }

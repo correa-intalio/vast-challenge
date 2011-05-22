@@ -2,18 +2,38 @@ package com.md.dm.vi.tp.entity;
 
 import java.util.Date;
 
-public class Weather {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "WEATHER")
+public class Weather {
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
+	private Long id;
+	@Column(name = "DATE")
 	private Date date;
-	private String weather;
+	@Column(name = "TYPE")
+	private String type;
+	@Column(name = "AVERAGE_WIND_SPEED")
 	private Integer averageWindSpeed;
+	@Column(name = "WIND_DIRECTION")
 	private String windDirection;
 	
-	public Weather(Date date, String weather, Integer averageWindSpeed,
+	Weather() {
+		//Only for RDBMS 
+	}
+
+	public Weather(Date date, String type, Integer averageWindSpeed,
 			String windDirection) {
 		super();
 		this.date = date;
-		this.weather = weather;
+		this.type = type;
 		this.averageWindSpeed = averageWindSpeed;
 		this.windDirection = windDirection;
 	}
@@ -22,16 +42,36 @@ public class Weather {
 		return date;
 	}
 
-	public String getWeather() {
-		return weather;
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public Integer getAverageWindSpeed() {
 		return averageWindSpeed;
 	}
 
+	public void setAverageWindSpeed(Integer averageWindSpeed) {
+		this.averageWindSpeed = averageWindSpeed;
+	}
+
 	public String getWindDirection() {
 		return windDirection;
+	}
+
+	public void setWindDirection(String windDirection) {
+		this.windDirection = windDirection;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	@Override
@@ -42,7 +82,8 @@ public class Weather {
 				* result
 				+ ((averageWindSpeed == null) ? 0 : averageWindSpeed.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((weather == null) ? 0 : weather.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result
 				+ ((windDirection == null) ? 0 : windDirection.hashCode());
 		return result;
@@ -67,10 +108,15 @@ public class Weather {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (weather == null) {
-			if (other.weather != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!weather.equals(other.weather))
+		} else if (!id.equals(other.id))
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
 			return false;
 		if (windDirection == null) {
 			if (other.windDirection != null)
@@ -82,11 +128,8 @@ public class Weather {
 
 	@Override
 	public String toString() {
-		return "Weather [date=" + date + ", weather=" + weather
+		return "Weather [id=" + id + ", date=" + date + ", type=" + type
 				+ ", averageWindSpeed=" + averageWindSpeed + ", windDirection="
 				+ windDirection + "]";
 	}
-
-	
-	
 }

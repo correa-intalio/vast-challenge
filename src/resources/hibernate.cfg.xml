@@ -9,7 +9,7 @@
         
         <!-- Database connection settings -->
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/events</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/vast</property>
         <property name="connection.username">vi</property>
         <property name="connection.password">vi</property>
         
@@ -31,8 +31,10 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">create</property>
         
-        <mapping class="event.Event"/>
-                    
+        <mapping class="com.md.dm.vi.tp.entity.Weather"/>
+        <mapping class="com.md.dm.vi.tp.entity.Population"/>
+        <mapping class="com.md.dm.vi.tp.entity.Microblog"/>
+        
     </session-factory>
     
 </hibernate-configuration>		
