@@ -5,4 +5,4 @@
 Frameworks/*
 Frameworks/**/*
 data/*
-data/**/*
+data/**/*/data
