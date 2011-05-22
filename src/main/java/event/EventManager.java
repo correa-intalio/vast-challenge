@@ -20,9 +20,9 @@ public class EventManager {
 		EventManager mgr = new EventManager();
 
 		mgr.createAndStoreEvent("My Event", new Date(), "POINT(10 15)");
-		
+
 		List events = mgr.find("POLYGON((1 1,20 1,20 20,1 20,1 1))");
-		
+
 		for (int i = 0; i < events.size(); i++) {
 			Event event = (Event) events.get(i);
 			System.out.println("Event: " + event.getTitle() + ", Time: "
