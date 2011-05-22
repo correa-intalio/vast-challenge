@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import util.HibernateUtil;
 
@@ -59,7 +60,7 @@ public class DataImporter {
 			Session session = HibernateUtil.getSessionFactory()
 					.getCurrentSession();
 
-			session.beginTransaction();
+			Transaction transaction = session.beginTransaction();
 
 			FileInputStream fstream = new FileInputStream("data/Weather.csv");
 			in = new DataInputStream(fstream);
@@ -73,7 +74,9 @@ public class DataImporter {
 				// System.out.println(weather);
 				session.save(weather);
 			}
+		
 			session.getTransaction().commit();
+
 		} finally {
 			if (in != null)
 				in.close();
